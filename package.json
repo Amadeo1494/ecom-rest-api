@@ -1,0 +1,16 @@
+{
+  "name": "ecom-rest-api",
+  "version": "1.0.0",
+  "description": "<p>This back-end project is a fully-functioning e-commerce application REST API, that allows users to perform various CRUD operations such as registering an account, browsing products for sale, etc..</p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
+  }
+}
