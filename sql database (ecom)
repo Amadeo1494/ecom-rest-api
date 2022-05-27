@@ -1,0 +1,395 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.1
+-- Dumped by pg_dump version 14.1
+
+-- Started on 2022-05-27 21:20:52
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 33332)
+-- Name: carts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.carts (
+    id integer NOT NULL,
+    cart_id integer,
+    user_id integer,
+    order_id integer,
+    product_id integer,
+    product_qty integer,
+    created_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.carts OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 33331)
+-- Name: carts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.carts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.carts_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3349 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: carts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 33314)
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    order_id integer,
+    product_id integer,
+    product_qty integer,
+    user_id integer,
+    created_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 33313)
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3350 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 16718)
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id integer NOT NULL,
+    sku integer,
+    artist character varying(255) NOT NULL,
+    album character varying(255) NOT NULL,
+    genre character varying(50),
+    year integer,
+    price numeric
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16717)
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.products_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3351 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 24901)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    username character varying(30),
+    password text,
+    first_name character varying(100),
+    last_name character varying(100),
+    address character varying(255),
+    email character varying(50),
+    phone_num integer
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 24900)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3352 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3183 (class 2604 OID 33335)
+-- Name: carts id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts ALTER COLUMN id SET DEFAULT nextval('public.carts_id_seq'::regclass);
+
+
+--
+-- TOC entry 3181 (class 2604 OID 33317)
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- TOC entry 3179 (class 2604 OID 16721)
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
+-- TOC entry 3180 (class 2604 OID 24904)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3343 (class 0 OID 33332)
+-- Dependencies: 216
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.carts VALUES (1, 1, 4, 1, 6, 1, '2022-05-04 22:11:43.480452');
+INSERT INTO public.carts VALUES (2, 1, 4, 1, 9, 2, '2022-05-04 22:11:43.480452');
+INSERT INTO public.carts VALUES (3, 2, 1, 2, 2, 1, '2022-05-04 22:11:43.480452');
+
+
+--
+-- TOC entry 3341 (class 0 OID 33314)
+-- Dependencies: 214
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.orders VALUES (4, 1, 6, 1, 4, '2022-05-04 22:03:37.769855');
+INSERT INTO public.orders VALUES (5, 1, 9, 2, 4, '2022-05-04 22:03:37.769855');
+INSERT INTO public.orders VALUES (6, 2, 2, 1, 1, '2022-05-04 22:03:37.769855');
+
+
+--
+-- TOC entry 3337 (class 0 OID 16718)
+-- Dependencies: 210
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.products VALUES (1, 2027, 'Muse', 'Origin of Symetry', 'Alternative Rock', 2001, 5.99);
+INSERT INTO public.products VALUES (2, 4422, 'Bonobo', 'Migration', 'Downtempo', 2017, 9.99);
+INSERT INTO public.products VALUES (4, 1274, 'Alcest', 'Les Voyages De LAme', 'Shoegaze', 2012, 7.99);
+INSERT INTO public.products VALUES (5, 1465, 'In Flames', 'Come Clarity', 'Melodic Death Metal', 2006, 5.99);
+INSERT INTO public.products VALUES (6, 1590, 'Jon Hopkins', 'Immunity', 'Microhouse', 2013, 3.99);
+INSERT INTO public.products VALUES (7, 2041, 'Linkin Park', 'Hybrid Theory', 'Alternative Rock', 2000, 2.99);
+INSERT INTO public.products VALUES (8, 1696, 'Moby', 'Play', 'Electronica', 1999, 5.99);
+INSERT INTO public.products VALUES (9, 4774, 'Olafur Arnalds', 're:member', 'Modern Classical', 2018, 8.99);
+INSERT INTO public.products VALUES (10, 3729, 'Orla Gartland', 'Woman on the Internet ', 'Alternative Pop', 2021, 12.99);
+INSERT INTO public.products VALUES (11, 1274, 'Alcest', 'Les Voyages De LAme', 'Shoegaze', 2012, 7.99);
+INSERT INTO public.products VALUES (3, 3186, 'Lianne La Havas', 'Blood', 'Neo-Soul', 2015, 5.99);
+
+
+--
+-- TOC entry 3339 (class 0 OID 24901)
+-- Dependencies: 212
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.users VALUES (1, 'gmacdiarmid0', 'OXirmIDD3', 'Godfrey', 'MacDiarmid', '7 Jackson Place', 'gmacdiarmid0@reference.com', 17282729);
+INSERT INTO public.users VALUES (3, 'zlamplugh2', '4yeHnx1hw1bo', 'Zenia', 'Lamplugh', '5 Hudson Parkway', 'zlamplugh2@a8.net', 72617252);
+INSERT INTO public.users VALUES (4, 'prowntree9', 'fLPiT6eyR', 'Pincus', 'Rowntree', '6 Armistice Place', 'prowntree9@omniture.com', 49848175);
+INSERT INTO public.users VALUES (2, 'kkalkofer1', NULL, 'Konstantine', 'Kalkofer', '5 Pine View Lane', 'kkalkofer1@cargocollective.com', 84967332);
+
+
+--
+-- TOC entry 3353 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: carts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.carts_id_seq', 3, true);
+
+
+--
+-- TOC entry 3354 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.orders_id_seq', 6, true);
+
+
+--
+-- TOC entry 3355 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.products_id_seq', 13, true);
+
+
+--
+-- TOC entry 3356 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 6, true);
+
+
+--
+-- TOC entry 3192 (class 2606 OID 33338)
+-- Name: carts carts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3190 (class 2606 OID 33320)
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3186 (class 2606 OID 16725)
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3188 (class 2606 OID 24908)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3196 (class 2606 OID 33344)
+-- Name: carts carts_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 3195 (class 2606 OID 33339)
+-- Name: carts carts_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- TOC entry 3193 (class 2606 OID 33321)
+-- Name: orders orders_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 3194 (class 2606 OID 33326)
+-- Name: orders orders_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+-- Completed on 2022-05-27 21:20:53
+
+--
+-- PostgreSQL database dump complete
+--
+
